@@ -1,8 +1,9 @@
 import express from 'express';
-import { getAllEvents } from '../controllers/eventController.js';
+import { getAllEvents, getEventById } from '../controllers/eventController.js';
 
 const router = express.Router();
 
 router.get('/', getAllEvents);
+router.get('/:id', getEventById); // Route baru untuk detail
 
 export default router;

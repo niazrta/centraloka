@@ -1,40 +1,80 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react'; 
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 const DetailPlace = () => {
   const { id } = useParams();
+   const { token } = useContext(AuthContext); // Butuh token untuk like
   const navigate = useNavigate();
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [favLoading, setFavLoading] = useState(false);
+
   // Ganti sesuai port backend kamu (3000 atau 5000)
   const API_URL = 'http://localhost:3000/api/places'; 
+  const FAV_URL = 'http://localhost:3000/api/favorites';
 
   useEffect(() => {
     const fetchDetail = async () => {
       try {
         const res = await axios.get(`${API_URL}/${id}`);
         setPlace(res.data);
-        setLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchDetail();
   }, [id]);
 
-  const handleDelete = async () => {
-    if (window.confirm("Yakin ingin menghapus wisata ini?")) {
-      try {
-        await axios.delete(`${API_URL}/${id}`);
-        alert("Wisata berhasil dihapus");
-        navigate('/');
-      } catch (error) {
-        alert("Gagal menghapus");
-      }
+  useEffect(() => {
+    if (token && id) {
+        const checkFav = async () => {
+            try {
+                const res = await axios.get(`${FAV_URL}/check/${id}`);
+                setIsFavorited(res.data.isFavorited);
+            } catch (error) {
+                console.error("Gagal cek favorit", error);
+            }
+        };
+        checkFav();
+    }
+  }, [token, id]);
+
+  const handleToggleFavorite = async () => {
+    if (!token) {
+        alert("Silakan login untuk menyimpan wisata ini.");
+        navigate('/login');
+        return;
+    }
+
+    setFavLoading(true);
+    try {
+        const res = await axios.post(FAV_URL, { place_id: id });
+        setIsFavorited(res.data.isFavorited); // Update icon sesuai respon backend
+        // alert(res.data.message); // Optional: Tampilkan notifikasi
+    } catch (error) {
+        alert("Gagal memproses favorit.");
+    } finally {
+        setFavLoading(false);
     }
   };
+
+  // const handleDelete = async () => {
+  //   if (window.confirm("Yakin ingin menghapus wisata ini?")) {
+  //     try {
+  //       await axios.delete(`${API_URL}/${id}`);
+  //       alert("Wisata berhasil dihapus");
+  //       navigate('/');
+  //     } catch (error) {
+  //       alert("Gagal menghapus");
+  //     }
+  //   }
+  // };
 
   if (loading) return <div className="text-center mt-20">Loading...</div>;
   if (!place) return <div className="text-center mt-20">Data tidak ditemukan</div>;
@@ -49,6 +89,25 @@ const DetailPlace = () => {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+
+        <button 
+            onClick={handleToggleFavorite}
+            disabled={favLoading}
+            className="absolute top-6 right-6 p-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-full shadow-lg hover:bg-white/40 transition disabled:opacity-50 group"
+        >
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className={`h-8 w-8 transition-colors duration-300 ${isFavorited ? 'text-red-500 fill-red-500' : 'text-white group-hover:text-red-200'}`} 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor" 
+                strokeWidth={2}
+            >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+        </button>
+
+
         <div className="absolute bottom-6 left-4 md:left-10 text-white max-w-2xl">
           <span className="bg-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
             {place.category}
@@ -72,7 +131,7 @@ const DetailPlace = () => {
             </p>
 
             {/* Action Buttons (CRUD) */}
-            <div className="mt-8 flex gap-4">
+            {/* <div className="mt-8 flex gap-4">
               <Link 
                 to={`/edit/${place.id}`} 
                 className="px-6 py-2 bg-yellow-500 text-white rounded-lg font-semibold hover:bg-yellow-600 transition"
@@ -85,7 +144,7 @@ const DetailPlace = () => {
               >
                 Hapus
               </button>
-            </div>
+            </div> */}
           </div>
 
           {/* Sidebar Info */}

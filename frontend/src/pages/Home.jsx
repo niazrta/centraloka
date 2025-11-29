@@ -29,7 +29,7 @@ const Home = () => {
       <img src={place.image_url} alt={place.name} className="w-full h-40 object-cover" />
       <div className="p-3">
         <h3 className="font-bold text-lg">{place.name}</h3>
-        <p className="text-gray-500 text-sm truncate">{place.location}</p>
+        <p className="text-gray-500 text-sm truncate">📍{place.location}</p>
       </div>
     </Link>
   );
@@ -54,7 +54,7 @@ const Home = () => {
 
       {/* Call to Action (CTA) */}
       <section className="bg-blue-100 p-6 rounded-xl text-center mt-10">
-        <h3 className="text-xl font-bold mb-2">Punya rekomendasi tempat wisata?</h3>
+        <h3 className="text-xl font-bold mb-2">Punya rekomendasi tempat wis?</h3>
         <p className="mb-4 text-gray-700">Bantu kami melengkapi katalog wisata ini dengan menambahkan tempat favoritmu.</p>
         <Link to="/add" className="inline-block bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition">
           Tambah Wisata Sekarang

@@ -1,32 +1,23 @@
 import express from 'express';
 import multer from 'multer';
-import { 
-    getAllPlaces, 
-    getPopularPlaces, 
-    getPlaceById, 
-    createPlace, 
-    updatePlace, 
-    deletePlace 
-} from '../controllers/placeController.js'; // Pastikan path benar
+import { getAllPlaces, getPopularPlaces, getPlaceById, createPlace, updatePlace, deletePlace, getPlacesByUser } from '../controllers/placeController.js';
+import { verifyToken } from '../middleware/authMiddleware.js'; // Import middleware
 
 const router = express.Router();
-
-// Setup Multer (Menyimpan file di RAM sementara sebelum ke Supabase)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// Definisi Route
+// Route Public (Bisa diakses siapa saja)
 router.get('/', getAllPlaces);
 router.get('/popular', getPopularPlaces);
 router.get('/:id', getPlaceById);
 
-// POST: Tambah Data (Wajib ada file image)
-router.post('/', upload.single('image'), createPlace);
+// Route Protected (Harus Login)
+// Route ini khusus untuk mengambil data profile user yg login
+router.get('/user/me', verifyToken, getPlacesByUser); 
 
-// PUT: Edit Data (File image opsional)
-router.put('/:id', upload.single('image'), updatePlace);
-
-// DELETE: Hapus Data
-router.delete('/:id', deletePlace);
+router.post('/', verifyToken, upload.single('image'), createPlace);
+router.put('/:id', verifyToken, upload.single('image'), updatePlace);
+router.delete('/:id', verifyToken, deletePlace);
 
 export default router;

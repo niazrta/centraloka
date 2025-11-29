@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import placeRoutes from './routes/placeRoutes.js';
 import eventRoutes from './routes/eventRoutes.js'; // Asumsi kamu punya ini
+import authRoutes from './routes/authRoutes.js';
+import favoriteRoutes from './routes/favoriteRoutes.js';
 
 dotenv.config();
 
@@ -24,6 +26,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/places', placeRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/auth', authRoutes); // Tambahkan ini
+app.use('/api/favorites', favoriteRoutes);
 
 // Menjalankan Server
 if (process.env.NODE_ENV !== 'production') {

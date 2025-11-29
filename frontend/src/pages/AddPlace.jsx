@@ -1,8 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+
+
 
 const AddPlace = () => {
+  // Tambahkan di bagian atas component AddPlace
+const { token } = useContext(AuthContext);
+
+useEffect(() => {
+    if (!token) {
+        alert("Silakan login untuk menambah wisata");
+        navigate('/login');
+    }
+}, [token]);
   // Field State
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
