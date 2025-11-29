@@ -15,11 +15,11 @@ import Favorites from './pages/Favorites';
 
 function App() {
   return (
-    // Mengubah background menjadi sedikit lebih abu-abu untuk kontras
-    <div className="bg-slate-50 min-h-screen text-slate-800 font-sans pb-20 md:pb-0">
-      <Navbar />
-      {/* Mengubah max-w-4xl menjadi max-w-7xl agar lebih luas */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+    
+    <div className="bg-slate-50 min-h-screen text-slate-800 font-sans pb-20">
+      
+     
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -35,7 +35,12 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </div>
+
+     
+      <Navbar />
+      
     </div>
   );
 }
+
 export default App;

@@ -8,7 +8,7 @@ const Category = () => {
   const categories = ['All', 'Alam', 'Kuliner', 'Sejarah', 'Belanja'];
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/places').then(res => setPlaces(res.data));
+    axios.get('https://wisata-kitaa.vercel.app/api/places').then(res => setPlaces(res.data));
   }, []);
 
   const filteredPlaces = selectedCategory === 'All' 

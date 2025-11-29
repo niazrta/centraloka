@@ -7,7 +7,7 @@ const Event = () => {
 
   useEffect(() => {
     // Sesuaikan port
-    axios.get('http://localhost:3000/api/events').then(res => setEvents(res.data));
+    axios.get('https://wisata-kitaa.vercel.app/api/events').then(res => setEvents(res.data));
   }, []);
 
   return (

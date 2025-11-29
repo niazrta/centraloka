@@ -9,7 +9,7 @@ const DetailEvent = () => {
   const [loading, setLoading] = useState(true);
 
   // Pastikan port backend sesuai (3000 atau 5000)
-  const API_URL = 'http://localhost:3000/api/events';
+  const API_URL = 'https://wisata-kitaa.vercel.app/api/events';
 
   useEffect(() => {
     const fetchEvent = async () => {

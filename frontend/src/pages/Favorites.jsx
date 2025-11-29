@@ -9,7 +9,7 @@ const Favorites = () => {
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const API_URL = 'http://localhost:3000/api/favorites';
+  const API_URL = 'https://wisata-kitaa.vercel.app/api/favorites';
 
   useEffect(() => {
     if (!token) {

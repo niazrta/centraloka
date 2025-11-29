@@ -8,14 +8,12 @@ const Profile = () => {
   const { user, token, logout } = useContext(AuthContext); 
   const navigate = useNavigate();
 
-  // LOGIKA NAMA:
-  // 1. Cek metadata full_name (dari register baru)
-  // 2. Jika kosong, pakai email (untuk user lama)
+  
   const userName = user?.user_metadata?.full_name || user?.email || "Pengguna";
   const userEmail = user?.email || "";
 
   // Sesuaikan port backend
-  const API_URL = 'http://localhost:3000/api/places';
+  const API_URL = 'https://wisata-kitaa.vercel.app/api/places';
 
   useEffect(() => {
     if (!token) {

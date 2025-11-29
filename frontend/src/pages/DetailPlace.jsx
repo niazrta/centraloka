@@ -19,8 +19,8 @@ const DetailPlace = () => {
   const [newRating, setNewRating] = useState(5);
   const [reviewLoading, setReviewLoading] = useState(false);
 
-  const API_URL = 'http://localhost:3000/api/places'; 
-  const FAV_URL = 'http://localhost:3000/api/favorites';
+  const API_URL = 'https://wisata-kitaa.vercel.app/api/places'; 
+  const FAV_URL = 'https://wisata-kitaa.vercel.app/api/favorites';
 
   // 1. Fetch Detail Wisata & Ulasan
   useEffect(() => {
@@ -146,7 +146,7 @@ const DetailPlace = () => {
       </div>
 
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-0 -mt-10 relative pt-14 z-10">
-        <div className="bg-gray-200 rounded-xl shadow-xl p-6 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-gray-00 rounded-xl shadow-xl p-6 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Main Content */}
           <div className="md:col-span-2">

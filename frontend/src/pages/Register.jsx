@@ -10,7 +10,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   // Sesuaikan port backend (3000 atau 5000)
-  const API_URL = 'http://localhost:3000/api/auth/register';
+  const API_URL = 'https://wisata-kitaa.vercel.app/api/auth/register';
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -56,7 +56,7 @@ const Register = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
               <input 
                   type="text" 
-                  placeholder="Contoh: Budi Santoso" 
+                  placeholder="Contoh: Insani Amalia" 
                   value={name} 
                   onChange={e => setName(e.target.value)} 
                   className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" 

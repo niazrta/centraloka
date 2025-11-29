@@ -48,7 +48,7 @@ useEffect(() => {
 
     try {
       // Pastikan port sesuai (3000/5000)
-      await axios.post('http://localhost:3000/api/places', formData, {
+      await axios.post('https://wisata-kitaa.vercel.app/api/places', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       alert('Wisata berhasil ditambahkan!');

@@ -20,7 +20,7 @@ const EditPlace = () => {
   const [loading, setLoading] = useState(false);
 
   // Ganti port jika perlu
-  const API_URL = 'http://localhost:3000/api/places'; 
+  const API_URL = 'https://wisata-kitaa.vercel.app/api/places'; 
 
   // Ambil data lama saat load
   useEffect(() => {
